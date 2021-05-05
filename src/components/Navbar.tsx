@@ -1,57 +1,39 @@
-import { AppBar, Avatar, Button, Container, makeStyles, Toolbar, Typography } from '@material-ui/core';
-import Image from 'next/image';
-
-const Navbar: React.FC = () => {
-  const classes = useStyles();
-  return (
-    <>
-      <AppBar position="static" color="transparent" elevation={0}>
-        <Toolbar>
-          <Container className={classes.nav}>
-            <Button className={classes.logo}>
-              <Image
-                src="/logo.png"
-                alt="Iguassu Solidario logo"
-                width={200}
-                height={70}
-              />
-            </Button>
-
-            <div className={classes.menu}>
-              <Button>
-                Campanhas
-              </Button>
-              <Button>
-                Galeria
-              </Button>
-              <Button>
-                Sobre Nós
-              </Button>
-              <Button>
-                Login
-              </Button>
-
-            </div>
-          </Container>
-        </Toolbar>
-      </AppBar>
-    </>
-  );
-};
+import {AppBar,Toolbar,IconButton,List,ListItem,ListItemText,Container} from "@material-ui/core";
+import { makeStyles } from "@material-ui/core/styles";
 
 const useStyles = makeStyles({
-  logo: {
-    textAlign: "initial"
+  navDisplayFlex: {
+    display: `flex`,
+    backgroundColor: "black",
+    margin: "0",
   },
-  menu: {
-    marginLeft: 0
-  },
-  nav: {
-    display: "flex",
-    justifyContent: "space-between",
-    alignItems: "center"
+  linkText: {
+    textDecoration: `none`,
+    color: `white`,
+    padding: "0 30px",
+    textAlign: "right"
   }
 });
 
+const navLinks = [
+  { title: "Campanha", path: `#` },
+  { title: "Galeria", path: `#` },
+  { title: "Sobre Nós", path: `#` },
+  { title: "Login", path: `#` }
+];
 
-export default Navbar;
+const NavBar = () => {
+  const classes = useStyles();
+  return (
+      <List className={classes.navDisplayFlex}>
+        {navLinks.map(({ title, path }) => (
+          <a href={path} key={title} className={classes.linkText}>
+            <ListItem button>
+              <ListItemText primary={title} />
+            </ListItem>
+          </a>
+        ))}
+      </List>
+  );
+};
+export default NavBar;
